@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.product.mapper.BaseAttrInfoMapper">
+
+    <resultMap id="selectAttrInfoListMap" type="com.atguigu.gmall.model.entity.product.BaseAttrInfo" autoMapping="true">
+        <id column="bi_id" property="id"></id>
+        <collection property="attrValueList" ofType="com.atguigu.gmall.model.entity.product.BaseAttrValue" autoMapping="true">
+            <id column="bv_id" property="id"></id>
+        </collection>
+    </resultMap>
+
+    <select id="selectAttrInfoList" resultMap="selectAttrInfoListMap">
+        SELECT
+            bi.id AS bi_id,
+            bv.id AS bv_id,
+            bi.*,
+            bv.*
+        FROM
+            base_attr_info bi,
+            base_attr_value bv
+        WHERE
+            bi.category_id = #{categoryId}
+            AND bi.category_level= #{categoryLevel}
+            AND bi.id = bv.attr_id
+    </select>
+</mapper>
