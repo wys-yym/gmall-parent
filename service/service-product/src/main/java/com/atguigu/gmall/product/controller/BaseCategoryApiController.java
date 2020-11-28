@@ -35,13 +35,13 @@ public class BaseCategoryApiController {
     }
 
     @RequestMapping("getCategory2/{category1Id}")
-    public Result getCategory2(@PathVariable Integer category1Id) {
+    public Result getCategory2(@PathVariable("category1Id") Long category1Id) {
         List<BaseCategory2> baseCategory2List = baseCategoryService.getCategory2(category1Id);
         return Result.ok(baseCategory2List);
     }
 
     @RequestMapping("getCategory3/{category2Id}")
-    public Result getCategory3(@PathVariable Integer category2Id) {
+    public Result getCategory3(@PathVariable("category2Id") Long category2Id) {
         List<BaseCategory3> baseCategory3List = baseCategoryService.getCategory3(category2Id);
         return Result.ok(baseCategory3List);
     }

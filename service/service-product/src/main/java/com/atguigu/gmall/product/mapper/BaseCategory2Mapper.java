@@ -2,6 +2,7 @@ package com.atguigu.gmall.product.mapper;
 
 import com.atguigu.gmall.model.entity.product.BaseCategory2;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @ProjectName: gmall-parent
@@ -11,5 +12,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @Date: 2020/11/28 12:51
  * @Version: 1.0
  */
+@Mapper
 public interface BaseCategory2Mapper extends BaseMapper<BaseCategory2> {
 }

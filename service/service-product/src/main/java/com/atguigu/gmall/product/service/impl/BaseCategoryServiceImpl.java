@@ -39,7 +39,7 @@ public class BaseCategoryServiceImpl implements BaseCategoryService {
     }
 
     @Override
-    public List<BaseCategory2> getCategory2(Integer category1Id) {
+    public List<BaseCategory2> getCategory2(Long category1Id) {
         QueryWrapper<BaseCategory2> wrapper = new QueryWrapper<>();
         wrapper.eq("category1_id",category1Id);
         List<BaseCategory2> baseCategory2List = baseCategory2Mapper.selectList(wrapper);
@@ -47,7 +47,7 @@ public class BaseCategoryServiceImpl implements BaseCategoryService {
     }
 
     @Override
-    public List<BaseCategory3> getCategory3(Integer category2Id) {
+    public List<BaseCategory3> getCategory3(Long category2Id) {
         QueryWrapper<BaseCategory3> wrapper = new QueryWrapper<>();
         wrapper.eq("category2_id",category2Id);
         List<BaseCategory3> baseCategory3List = baseCategory3Mapper.selectList(wrapper);

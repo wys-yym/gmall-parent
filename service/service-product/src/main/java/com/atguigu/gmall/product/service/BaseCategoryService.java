@@ -3,7 +3,7 @@ package com.atguigu.gmall.product.service;
 import com.atguigu.gmall.model.entity.product.BaseCategory1;
 import com.atguigu.gmall.model.entity.product.BaseCategory2;
 import com.atguigu.gmall.model.entity.product.BaseCategory3;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface BaseCategoryService {
      * @throws
      * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseCategory2>
      */
-    List<BaseCategory2> getCategory2(Integer category1Id);
+    List<BaseCategory2> getCategory2(Long category1Id);
 
     /**
      * 通过二级分类id获取所有三级分类
@@ -45,6 +45,6 @@ public interface BaseCategoryService {
      * @throws
      * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseCategory2>
      */
-    List<BaseCategory3> getCategory3(Integer category2Id);
+    List<BaseCategory3> getCategory3(Long category2Id);
 }
 
