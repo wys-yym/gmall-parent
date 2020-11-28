@@ -1,5 +1,6 @@
 package com.atguigu.gmall.test.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2020/11/27 18:57
  * @Version: 1.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping("api/test")
 public class TestApiController {
