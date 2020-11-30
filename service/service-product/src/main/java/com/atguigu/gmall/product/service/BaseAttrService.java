@@ -2,6 +2,7 @@ package com.atguigu.gmall.product.service;
 
 import com.atguigu.gmall.model.entity.product.BaseAttrInfo;
 import com.atguigu.gmall.model.entity.product.BaseAttrValue;
+import com.atguigu.gmall.model.entity.product.BaseSaleAttr;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @Date: 2020/11/28 21:20
  * @Version: 1.0
  */
-public interface BaseAttrInfoService {
+public interface BaseAttrService {
 
     /**
      * 通过分类Id获取商品属性信息
@@ -44,4 +45,14 @@ public interface BaseAttrInfoService {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseAttrValue>
      */
     List<BaseAttrValue> getAttrValueList(Long attrId);
+
+    /**
+     * 获取所有平台销售属性
+     * @Author WangYongShuai
+     * @Date 13:05 2020/11/30
+     * @param
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseSaleAttr>
+     */
+    List<BaseSaleAttr> baseSaleAttrList();
 }
