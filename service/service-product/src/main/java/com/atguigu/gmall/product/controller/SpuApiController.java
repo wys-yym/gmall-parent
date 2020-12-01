@@ -1,11 +1,15 @@
 package com.atguigu.gmall.product.controller;
 
+import com.atguigu.gmall.model.entity.product.SpuImage;
 import com.atguigu.gmall.model.entity.product.SpuInfo;
+import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
 import com.atguigu.gmall.product.service.SpuService;
 import com.atguigu.gmall.result.Result;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ProjectName: gmall-parent
@@ -35,5 +39,17 @@ public class SpuApiController {
     public Result saveSpuInfo(@RequestBody SpuInfo spuInfo) {
         spuService.saveSpuInfo(spuInfo);
         return Result.ok();
+    }
+
+    @RequestMapping("spuImageList/{spuId}")
+    public Result spuImageList(@PathVariable Long spuId) {
+        List<SpuImage> spuImageList = spuService.spuImageList(spuId);
+        return Result.ok(spuImageList);
+    }
+
+    @RequestMapping("spuSaleAttrList/{spuId}")
+    public Result spuSaleAttrList(@PathVariable Long spuId) {
+        List<SpuSaleAttr> spuSaleAttrList = spuService.spuSaleAttrList(spuId);
+        return Result.ok(spuSaleAttrList);
     }
 }

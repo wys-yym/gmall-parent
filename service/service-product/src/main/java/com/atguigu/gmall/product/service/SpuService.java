@@ -1,9 +1,11 @@
 package com.atguigu.gmall.product.service;
 
+import com.atguigu.gmall.model.entity.product.SpuImage;
 import com.atguigu.gmall.model.entity.product.SpuInfo;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @ProjectName: gmall-parent
@@ -34,4 +36,24 @@ public interface SpuService {
      * @return void
      */
     void saveSpuInfo(SpuInfo spuInfo);
+
+    /**
+     * 查询所有spu图片
+     * @Author WangYongShuai
+     * @Date 16:06 2020/12/1
+     * @param spuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuImage>
+     */
+    List<SpuImage> spuImageList(Long spuId);
+
+    /**
+     * 获取所有spu销售属性
+     * @Author WangYongShuai
+     * @Date 16:15 2020/12/1
+     * @param spuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
+     */
+    List<SpuSaleAttr> spuSaleAttrList(Long spuId);
 }
