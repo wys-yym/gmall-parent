@@ -1,4 +1,4 @@
-package com.atguigu.gmall.all;
+package com.atguigu.gmall.item;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,20 +7,15 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-/**
- * @ProjectName: gmall-parent
- * @Package: com.atguigu.gmall.all
- * @Author: WangYongShuai
- * @Description:
- * @Date: 2020/12/1 23:06
- * @Version: 1.0
- */
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@ComponentScan("com.atguigu.gmall")
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)//取消数据源自动配置
+@ComponentScan({"com.atguigu.gmall"})
 @EnableDiscoveryClient
 @EnableFeignClients("com.atguigu.gmall")
-public class WebAllApplication {
+public class ServiceItemApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(WebAllApplication.class,args);
+
+        SpringApplication.run(ServiceItemApplication.class, args);
     }
+
 }

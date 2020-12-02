@@ -1,7 +1,11 @@
 package com.atguigu.gmall.product.service;
 
+import com.atguigu.gmall.model.entity.product.BaseCategoryView;
 import com.atguigu.gmall.model.entity.product.SkuInfo;
+import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @ProjectName: gmall-parent
@@ -51,4 +55,44 @@ public interface SkuService {
      * @return void
      */
     void cancelSale(Long skuId);
+
+    /**
+     * 获取商品价格
+     * @Author WangYongShuai
+     * @Date 18:44 2020/12/2
+     * @param skuId
+     * @throws
+     * @return java.math.BigDecimal
+     */
+    BigDecimal getPrice(Long skuId);
+
+    /**
+     * 获取sku信息
+     * @Author WangYongShuai
+     * @Date 18:55 2020/12/2
+     * @param skuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.product.SkuImage>
+     */
+    SkuInfo getSkuInfo(Long skuId);
+
+    /**
+     * 获取spu销售属性
+     * @Author WangYongShuai
+     * @Date 19:47 2020/12/2
+     * @param skuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
+     */
+    List<SpuSaleAttr> getSpuSaleAttrList(Long skuId);
+
+    /**
+     * 类目导航
+     * @Author WangYongShuai
+     * @Date 20:07 2020/12/2
+     * @param category3Id
+     * @throws
+     * @return com.atguigu.gmall.model.entity.product.BaseCategoryView
+     */
+    BaseCategoryView getCategoryView(Long category3Id);
 }
