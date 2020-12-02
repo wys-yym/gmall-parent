@@ -3,6 +3,7 @@ package com.atguigu.gmall.product.service;
 import com.atguigu.gmall.model.entity.product.BaseCategory1;
 import com.atguigu.gmall.model.entity.product.BaseCategory2;
 import com.atguigu.gmall.model.entity.product.BaseCategory3;
+import com.atguigu.gmall.model.entity.product.BaseCategoryView;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -46,5 +47,15 @@ public interface BaseCategoryService {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseCategory2>
      */
     List<BaseCategory3> getCategory3(Long category2Id);
+
+    /**
+     * 类目导航
+     * @Author WangYongShuai
+     * @Date 20:07 2020/12/2
+     * @param category3Id
+     * @throws
+     * @return com.atguigu.gmall.model.entity.product.BaseCategoryView
+     */
+    BaseCategoryView getCategoryView(Long category3Id);
 }
 

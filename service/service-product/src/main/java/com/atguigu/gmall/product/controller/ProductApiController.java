@@ -4,6 +4,7 @@ import com.atguigu.gmall.model.entity.product.BaseCategoryView;
 import com.atguigu.gmall.model.entity.product.SkuImage;
 import com.atguigu.gmall.model.entity.product.SkuInfo;
 import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
+import com.atguigu.gmall.product.service.BaseCategoryService;
 import com.atguigu.gmall.product.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,9 @@ public class ProductApiController {
     @Autowired
     SkuService skuService;
 
+    @Autowired
+    BaseCategoryService baseCategoryService;
+
     @RequestMapping("getPrice/{skuId}")
     BigDecimal getPrice(@PathVariable Long skuId) {
         BigDecimal price = skuService.getPrice(skuId);
@@ -47,7 +51,7 @@ public class ProductApiController {
 
     @RequestMapping("getCategoryView/{category3Id}")
     BaseCategoryView getCategoryView(@PathVariable Long category3Id) {
-        BaseCategoryView baseCategoryView = skuService.getCategoryView(category3Id);
+        BaseCategoryView baseCategoryView = baseCategoryService.getCategoryView(category3Id);
         return baseCategoryView;
     }
 }

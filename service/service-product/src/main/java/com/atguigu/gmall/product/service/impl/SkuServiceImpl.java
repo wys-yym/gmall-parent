@@ -37,9 +37,6 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     private SpuService spuService;
 
-    @Autowired
-    private BaseCategoryViewMapper baseCategoryViewMapper;
-
     @Override
     public void saveSkuInfo(SkuInfo skuInfo) {
         skuInfoMapper.insert(skuInfo);
@@ -104,13 +101,5 @@ public class SkuServiceImpl implements SkuService {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
         List<SpuSaleAttr> spuSaleAttrList = spuService.spuSaleAttrList(skuInfo.getSpuId());
         return spuSaleAttrList;
-    }
-
-    @Override
-    public BaseCategoryView getCategoryView(Long category3Id) {
-        QueryWrapper<BaseCategoryView> wrapper = new QueryWrapper<>();
-        wrapper.eq("category3_id",category3Id);
-        BaseCategoryView categoryView = baseCategoryViewMapper.selectOne(wrapper);
-        return categoryView;
     }
 }

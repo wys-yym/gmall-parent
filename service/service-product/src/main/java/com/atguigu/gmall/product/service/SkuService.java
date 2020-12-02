@@ -85,14 +85,4 @@ public interface SkuService {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
      */
     List<SpuSaleAttr> getSpuSaleAttrList(Long skuId);
-
-    /**
-     * 类目导航
-     * @Author WangYongShuai
-     * @Date 20:07 2020/12/2
-     * @param category3Id
-     * @throws
-     * @return com.atguigu.gmall.model.entity.product.BaseCategoryView
-     */
-    BaseCategoryView getCategoryView(Long category3Id);
 }
