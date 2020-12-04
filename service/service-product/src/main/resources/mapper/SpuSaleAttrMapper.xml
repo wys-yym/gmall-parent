@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.product.mapper.SpuSaleAttrMapper">
+
+    <select id="selectSpuSaleAttrList" resultMap="selectSpuSaleAttrListMap">
+        SELECT
+            sa.id AS sa_id,
+            sa.*,
+            sav.id AS sav_id,
+            sav.*,
+        IF( skv.sku_id, 1, 0 ) AS isChecked
+        FROM
+            spu_sale_attr sa
+            INNER JOIN spu_sale_attr_value sav ON sa.spu_id = sav.spu_id
+            AND sa.base_sale_attr_id = sav.base_sale_attr_id
+            AND sa.spu_id = #{spuId}
+            LEFT JOIN sku_sale_attr_value skv ON skv.sale_attr_value_id = sav.id
+            AND skv.sku_id = #{skuId}
+        ORDER BY
+            sa.base_sale_attr_id,
+            sav.id
+    </select>
+    <select id="getSaleAttrValuesBySpu" resultType="java.util.Map">
+        SELECT
+            GROUP_CONCAT( sale_attr_value_id ORDER BY sale_attr_value_id SEPARATOR "|" ) AS k,
+            sku_id AS v
+        FROM
+            `sku_sale_attr_value` sav
+        WHERE
+            sav.spu_id = #{spuId}
+        GROUP BY
+	sav.sku_id
+    </select>
+
+    <resultMap id="selectSpuSaleAttrListMap" type="com.atguigu.gmall.model.entity.product.SpuSaleAttr" autoMapping="true">
+        <id property="id" column="sa_id"></id>
+        <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.model.entity.product.SpuSaleAttrValue" autoMapping="true">
+            <id property="id" column="sav_id"></id>
+        </collection>
+    </resultMap>
+</mapper>

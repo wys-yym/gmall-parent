@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.constant.RedisConst;
 import com.atguigu.gmall.model.entity.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.SkuService;
@@ -7,9 +8,12 @@ import com.atguigu.gmall.product.service.SpuService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,6 +37,9 @@ public class SkuServiceImpl implements SkuService {
 
     @Autowired
     private SkuSaleAttrValueMapper skuSaleAttrValueMapper;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private SpuService spuService;
@@ -88,18 +95,21 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public SkuInfo getSkuInfo(Long skuId) {
+        SkuInfo skuInfo = (SkuInfo)redisTemplate.opsForValue().get(RedisConst.SKUKEY_PREFIX+skuId+RedisConst.SKUKEY_SUFFIX);
+        if (null == skuInfo) {
+
+            String redisKey = RedisConst.SKUKEY_PREFIX+skuId+RedisConst.SKUKEY_SUFFIX;
+            redisTemplate.opsForValue().set(redisKey,skuInfo);
+        }
+        return skuInfo;
+    }
+
+    private SkuInfo getSkuInfoFromDb(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
         QueryWrapper<SkuImage> wrapper = new QueryWrapper<>();
         wrapper.eq("sku_id",skuId);
         List<SkuImage> skuImageList = skuImageMapper.selectList(wrapper);
         skuInfo.setSkuImageList(skuImageList);
         return skuInfo;
-    }
-
-    @Override
-    public List<SpuSaleAttr> getSpuSaleAttrList(Long skuId) {
-        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
-        List<SpuSaleAttr> spuSaleAttrList = spuService.spuSaleAttrList(skuInfo.getSpuId());
-        return spuSaleAttrList;
     }
 }

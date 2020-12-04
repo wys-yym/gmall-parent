@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: gmall-parent
@@ -51,8 +52,8 @@ public interface ProductFeignClient {
      * @throws
      * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
      */
-    @RequestMapping("api/product/getSpuSaleAttrList/{skuId}")
-    List<SpuSaleAttr> getSpuSaleAttrList(@PathVariable Long skuId);
+    @RequestMapping("api/product/getSpuSaleAttrList/{spuId}/{skuId}")
+    List<SpuSaleAttr> getSpuSaleAttrList(@PathVariable Long spuId,@PathVariable Long skuId);
 
     /**
      * 类目导航
@@ -64,4 +65,15 @@ public interface ProductFeignClient {
      */
     @RequestMapping("api/product/getCategoryView/{category3Id}")
     BaseCategoryView getCategoryView(@PathVariable Long category3Id);
+
+    /**
+     * 通过spuId获取sku与销售属性值的对应关系
+     * @Author WangYongShuai
+     * @Date 19:12 2020/12/4
+     * @param spuId
+     * @throws
+     * @return java.util.Map<java.lang.String,java.lang.Long>
+     */
+    @RequestMapping("api/product/getSaleAttrValuesBySpu/{spuId}")
+    Map<String, Long> getSaleAttrValuesBySpu(@PathVariable Long spuId);
 }

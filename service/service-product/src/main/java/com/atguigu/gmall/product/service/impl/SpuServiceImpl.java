@@ -14,7 +14,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: gmall-parent
@@ -99,5 +101,23 @@ public class SpuServiceImpl implements SpuService {
             spuSaleAttr.setSpuSaleAttrValueList(spuSaleAttrValueList);
         }
         return spuSaleAttrList;
+    }
+
+    @Override
+    public List<SpuSaleAttr> getSpuSaleAttrList(Long spuId, Long skuId) {
+        List<SpuSaleAttr> spuSaleAttrList = spuSaleAttrMapper.selectSpuSaleAttrList(spuId,skuId);
+        return spuSaleAttrList;
+    }
+
+    @Override
+    public Map<String, Long> getSaleAttrValuesBySpu(Long spuId) {
+        List<Map> mapList = spuSaleAttrMapper.getSaleAttrValuesBySpu(spuId);
+        HashMap<String, Long> jsonMap = new HashMap<>();
+        for (Map map : mapList) {
+            String k = (String)map.get("k");
+            Long v = (Long)map.get("v");
+            jsonMap.put(k,v);
+        }
+        return jsonMap;
     }
 }

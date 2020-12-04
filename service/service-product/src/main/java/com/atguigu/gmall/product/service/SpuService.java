@@ -6,6 +6,7 @@ import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: gmall-parent
@@ -48,7 +49,7 @@ public interface SpuService {
     List<SpuImage> spuImageList(Long spuId);
 
     /**
-     * 获取所有spu销售属性
+     * 后台获取所有spu销售属性
      * @Author WangYongShuai
      * @Date 16:15 2020/12/1
      * @param spuId
@@ -56,4 +57,25 @@ public interface SpuService {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
      */
     List<SpuSaleAttr> spuSaleAttrList(Long spuId);
+
+    /**
+     * 前端获取spu销售属性
+     * @Author WangYongShuai
+     * @Date 15:27 2020/12/4
+     * @param spuId
+     * @param skuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
+     */
+    List<SpuSaleAttr> getSpuSaleAttrList(Long spuId, Long skuId);
+
+    /**
+     * 通过spuId获取sku与销售属性值的对应关系
+     * @Author WangYongShuai
+     * @Date 19:14 2020/12/4
+     * @param spuId
+     * @throws
+     * @return java.util.Map<java.lang.String,java.lang.Long>
+     */
+    Map<String, Long> getSaleAttrValuesBySpu(Long spuId);
 }

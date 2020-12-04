@@ -75,14 +75,4 @@ public interface SkuService {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.SkuImage>
      */
     SkuInfo getSkuInfo(Long skuId);
-
-    /**
-     * 获取spu销售属性
-     * @Author WangYongShuai
-     * @Date 19:47 2020/12/2
-     * @param skuId
-     * @throws
-     * @return java.util.List<com.atguigu.gmall.model.entity.product.SpuSaleAttr>
-     */
-    List<SpuSaleAttr> getSpuSaleAttrList(Long skuId);
 }

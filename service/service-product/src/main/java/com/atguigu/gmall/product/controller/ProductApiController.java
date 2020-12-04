@@ -6,6 +6,7 @@ import com.atguigu.gmall.model.entity.product.SkuInfo;
 import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
 import com.atguigu.gmall.product.service.BaseCategoryService;
 import com.atguigu.gmall.product.service.SkuService;
+import com.atguigu.gmall.product.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName: gmall-parent
@@ -29,6 +31,9 @@ public class ProductApiController {
     SkuService skuService;
 
     @Autowired
+    SpuService spuService;
+
+    @Autowired
     BaseCategoryService baseCategoryService;
 
     @RequestMapping("getPrice/{skuId}")
@@ -43,9 +48,9 @@ public class ProductApiController {
         return skuInfo;
     }
 
-    @RequestMapping("getSpuSaleAttrList/{skuId}")
-    List<SpuSaleAttr> getSpuSaleAttrList(@PathVariable Long skuId) {
-        List<SpuSaleAttr> spuSaleAttrList = skuService.getSpuSaleAttrList(skuId);
+    @RequestMapping("getSpuSaleAttrList/{spuId}/{skuId}")
+    List<SpuSaleAttr> getSpuSaleAttrList(@PathVariable Long spuId,@PathVariable Long skuId) {
+        List<SpuSaleAttr> spuSaleAttrList = spuService.getSpuSaleAttrList(spuId,skuId);
         return spuSaleAttrList;
     }
 
@@ -53,5 +58,11 @@ public class ProductApiController {
     BaseCategoryView getCategoryView(@PathVariable Long category3Id) {
         BaseCategoryView baseCategoryView = baseCategoryService.getCategoryView(category3Id);
         return baseCategoryView;
+    }
+
+    @RequestMapping("getSaleAttrValuesBySpu/{spuId}")
+    Map<String, Long> getSaleAttrValuesBySpu(@PathVariable Long spuId) {
+        Map<String, Long> map = spuService.getSaleAttrValuesBySpu(spuId);
+        return map;
     }
 }
