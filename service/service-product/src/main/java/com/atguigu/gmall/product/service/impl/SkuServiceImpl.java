@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.config.GmallCache;
 import com.atguigu.gmall.constant.RedisConst;
 import com.atguigu.gmall.model.entity.product.*;
 import com.atguigu.gmall.product.mapper.*;
@@ -93,14 +94,10 @@ public class SkuServiceImpl implements SkuService {
         return skuInfo.getPrice();
     }
 
+    @GmallCache
     @Override
     public SkuInfo getSkuInfo(Long skuId) {
-        SkuInfo skuInfo = (SkuInfo)redisTemplate.opsForValue().get(RedisConst.SKUKEY_PREFIX+skuId+RedisConst.SKUKEY_SUFFIX);
-        if (null == skuInfo) {
-
-            String redisKey = RedisConst.SKUKEY_PREFIX+skuId+RedisConst.SKUKEY_SUFFIX;
-            redisTemplate.opsForValue().set(redisKey,skuInfo);
-        }
+        SkuInfo skuInfo = getSkuInfoFromDb(skuId);
         return skuInfo;
     }
 
