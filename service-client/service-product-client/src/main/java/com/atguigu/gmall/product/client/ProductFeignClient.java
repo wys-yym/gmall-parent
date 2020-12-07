@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.client;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.entity.product.BaseCategoryView;
 import com.atguigu.gmall.model.entity.product.SkuImage;
 import com.atguigu.gmall.model.entity.product.SkuInfo;
@@ -76,4 +77,15 @@ public interface ProductFeignClient {
      */
     @RequestMapping("api/product/getSaleAttrValuesBySpu/{spuId}")
     Map<String, Long> getSaleAttrValuesBySpu(@PathVariable Long spuId);
+
+    /**
+     * 获取首页的分类集合
+     * @Author WangYongShuai
+     * @Date 23:08 2020/12/7
+     * @param
+     * @throws
+     * @return java.util.List<com.alibaba.fastjson.JSONObject>
+     */
+    @RequestMapping("api/product/getBaseCategoryList")
+    List<JSONObject> getBaseCategoryList();
 }

@@ -1,5 +1,7 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.atguigu.gmall.config.GmallCache;
 import com.atguigu.gmall.model.entity.product.BaseCategory1;
 import com.atguigu.gmall.model.entity.product.BaseCategory2;
 import com.atguigu.gmall.model.entity.product.BaseCategory3;
@@ -13,7 +15,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @ProjectName: gmall-parent
@@ -65,5 +70,52 @@ public class BaseCategoryServiceImpl implements BaseCategoryService {
         wrapper.eq("category3_id",category3Id);
         BaseCategoryView categoryView = baseCategoryViewMapper.selectOne(wrapper);
         return categoryView;
+    }
+
+    @GmallCache
+    @Override
+    public List<JSONObject> getBaseCategoryList() {
+        //查询categoryList
+        List<BaseCategoryView> baseCategoryViews = baseCategoryViewMapper.selectList(null);
+        //一级分类集合
+        List<JSONObject> category1list = new ArrayList<>();
+        Map<Long, List<BaseCategoryView>> category1Map = baseCategoryViews.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory1Id));
+        for (Map.Entry<Long, List<BaseCategoryView>> category1Object : category1Map.entrySet()) {
+            Long catogory1Id = category1Object.getKey();
+            String category1Name = category1Object.getValue().get(0).getCategory1Name();
+            JSONObject categor1JsonObject = new JSONObject();
+            categor1JsonObject.put("categoryId",catogory1Id);
+            categor1JsonObject.put("categoryName",category1Name);
+
+            //二级分类的集合
+            List<JSONObject> category2list = new ArrayList<>();
+            List<BaseCategoryView> category2Views = category1Object.getValue();
+            Map<Long, List<BaseCategoryView>> category2Map = category2Views.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory2Id));
+            for (Map.Entry<Long, List<BaseCategoryView>> category2Object : category2Map.entrySet()) {
+                Long catogory2Id = category1Object.getKey();
+                String category2Name = category2Object.getValue().get(0).getCategory2Name();
+                JSONObject categor2JsonObject = new JSONObject();
+                categor2JsonObject.put("categoryId",catogory2Id);
+                categor2JsonObject.put("categoryName",category2Name);
+
+                //三级分类的集合
+                List<JSONObject> category3list = new ArrayList<>();
+                List<BaseCategoryView> category3Views = category2Object.getValue();
+                Map<Long, List<BaseCategoryView>> category3Map = category3Views.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory3Id));
+                for (Map.Entry<Long, List<BaseCategoryView>> category3Object : category3Map.entrySet()) {
+                    Long catogory3Id = category3Object.getKey();
+                    String category3Name = category3Object.getValue().get(0).getCategory3Name();
+                    JSONObject categor3JsonObject = new JSONObject();
+                    categor3JsonObject.put("categoryId",catogory3Id);
+                    categor3JsonObject.put("categoryName",category3Name);
+                    category3list.add(categor3JsonObject);
+                }
+                categor2JsonObject.put("categoryChild",category3list);
+                category2list.add(categor2JsonObject);
+            }
+            categor1JsonObject.put("categoryChild",category2list);
+            category1list.add(categor1JsonObject);
+        }
+        return category1list;
     }
 }

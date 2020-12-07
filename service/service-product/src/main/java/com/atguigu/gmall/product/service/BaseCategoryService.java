@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.entity.product.BaseCategory1;
 import com.atguigu.gmall.model.entity.product.BaseCategory2;
 import com.atguigu.gmall.model.entity.product.BaseCategory3;
@@ -57,5 +58,15 @@ public interface BaseCategoryService {
      * @return com.atguigu.gmall.model.entity.product.BaseCategoryView
      */
     BaseCategoryView getCategoryView(Long category3Id);
+
+    /**
+     * 获取首页的分类集合
+     * @Author WangYongShuai
+     * @Date 23:10 2020/12/7
+     * @param
+     * @throws
+     * @return java.util.List<com.alibaba.fastjson.JSONObject>
+     */
+    List<JSONObject> getBaseCategoryList();
 }
 
