@@ -55,7 +55,7 @@ public class GmallCacheAspect {
                     }
                     //释放锁
                     String openKey = (String) redisTemplate.opsForValue().get(cacheKey + ":" + "lock");
-                    if (openKey.equals(cacheLockKey)) {
+                    if (cacheLockKey.equals(openKey)) {
                         redisTemplate.delete(cacheKey + ":" + "lock");
                     }
                 } else {
