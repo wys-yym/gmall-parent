@@ -2,6 +2,7 @@ package com.atguigu.gmall.product.service.impl;
 
 import com.atguigu.gmall.config.GmallCache;
 import com.atguigu.gmall.constant.RedisConst;
+import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.model.entity.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.SkuService;
@@ -45,6 +46,9 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     private SpuService spuService;
 
+    @Autowired
+    private ListFeignClient listFeignClient;
+
     @Override
     public void saveSkuInfo(SkuInfo skuInfo) {
         skuInfoMapper.insert(skuInfo);
@@ -78,6 +82,9 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setId(skuId);
         skuInfo.setIsSale(1);
         skuInfoMapper.updateById(skuInfo);
+
+        //同步到搜索引擎
+        listFeignClient.onSale(skuId);
     }
 
     @Override
@@ -86,6 +93,9 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setId(skuId);
         skuInfo.setIsSale(0);
         skuInfoMapper.updateById(skuInfo);
+
+        //从搜索引擎移除
+        listFeignClient.cancelSale(skuId);
     }
 
     @Override
