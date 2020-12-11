@@ -1,8 +1,11 @@
 package com.atguigu.gmall.list.client;
 
 import com.alibaba.fastjson.JSONObject;
+import com.atguigu.gmall.model.entity.list.SearchParam;
+import com.atguigu.gmall.model.entity.list.SearchResponseVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -49,4 +52,15 @@ public interface ListFeignClient {
      */
     @RequestMapping("api/list/cancelSale/{skuId}")
     void cancelSale(@PathVariable Long skuId);
+
+    /**
+     * 获取搜索请求所响应的结果
+     * @Author WangYongShuai
+     * @Date 14:20 2020/12/11
+     * @param searchParam
+     * @throws
+     * @return com.atguigu.gmall.model.entity.list.SearchResponseVo
+     */
+    @RequestMapping("api/list/list")
+    SearchResponseVo list(@RequestBody SearchParam searchParam);
 }

@@ -25,4 +25,22 @@
             AND bi.category_level= #{categoryLevel}
             AND bi.id = bv.attr_id
     </select>
+
+    <select id="getSearchAttrListBySkuId" resultMap="SearchAttrResultMap">
+        SELECT
+            bai.id AS attrId,
+            bai.attr_name AS attrName,
+            bav.value_name AS attrValue
+        FROM
+            sku_attr_value sav,
+            base_attr_info bai,
+            base_attr_value bav
+        WHERE
+            sav.attr_id = bai.id
+            AND sav.value_id = bav.id
+            AND sav.sku_id = #{skuId}
+    </select>
+    <resultMap id="SearchAttrResultMap" type="com.atguigu.gmall.model.entity.list.SearchAttr" autoMapping="true">
+
+    </resultMap>
 </mapper>

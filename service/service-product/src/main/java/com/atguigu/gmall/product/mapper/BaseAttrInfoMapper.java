@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.mapper;
 
+import com.atguigu.gmall.model.entity.list.SearchAttr;
 import com.atguigu.gmall.model.entity.product.BaseAttrInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,4 +28,14 @@ public interface BaseAttrInfoMapper extends BaseMapper<BaseAttrInfo> {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseAttrInfo>
      */
     List<BaseAttrInfo> selectAttrInfoList(@Param("categoryLevel") int i,@Param("categoryId") String category3Id);
+
+    /**
+     * 获取搜索属性信息
+     * @Author WangYongShuai
+     * @Date 11:43 2020/12/11
+     * @param skuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.list.SearchAttr>
+     */
+    List<SearchAttr> getSearchAttrListBySkuId(Long skuId);
 }

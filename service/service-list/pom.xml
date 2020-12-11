@@ -17,6 +17,11 @@
             <artifactId>service-product-client</artifactId>
             <version>1.0</version>
         </dependency>
+        <!--es-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

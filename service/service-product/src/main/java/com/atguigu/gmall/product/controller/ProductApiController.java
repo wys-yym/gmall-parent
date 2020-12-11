@@ -1,13 +1,9 @@
 package com.atguigu.gmall.product.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.atguigu.gmall.model.entity.product.BaseCategoryView;
-import com.atguigu.gmall.model.entity.product.SkuImage;
-import com.atguigu.gmall.model.entity.product.SkuInfo;
-import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
-import com.atguigu.gmall.product.service.BaseCategoryService;
-import com.atguigu.gmall.product.service.SkuService;
-import com.atguigu.gmall.product.service.SpuService;
+import com.atguigu.gmall.model.entity.list.SearchAttr;
+import com.atguigu.gmall.model.entity.product.*;
+import com.atguigu.gmall.product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +32,12 @@ public class ProductApiController {
 
     @Autowired
     BaseCategoryService baseCategoryService;
+
+    @Autowired
+    BaseTrademarkService baseTrademarkService;
+
+    @Autowired
+    BaseAttrService baseAttrService;
 
     @RequestMapping("getPrice/{skuId}")
     BigDecimal getPrice(@PathVariable Long skuId) {
@@ -71,5 +73,17 @@ public class ProductApiController {
     List<JSONObject> getBaseCategoryList(){
         List<JSONObject> list = baseCategoryService.getBaseCategoryList();
         return list;
+    }
+
+    @RequestMapping("getTradeMarkByTmId/{TmId}")
+    BaseTrademark getTradeMarkByTmId(@PathVariable Long TmId){
+        BaseTrademark baseTrademark = baseTrademarkService.getTradeMarkByTmId(TmId);
+        return baseTrademark;
+    }
+
+    @RequestMapping("getSearchAttrListBySkuId/{skuId}")
+    List<SearchAttr> getSearchAttrListBySkuId(@PathVariable Long skuId){
+        List<SearchAttr> searchAttrList = baseAttrService.getSearchAttrListBySkuId(skuId);
+        return searchAttrList;
     }
 }

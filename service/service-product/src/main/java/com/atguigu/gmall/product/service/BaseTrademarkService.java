@@ -33,4 +33,14 @@ public interface BaseTrademarkService {
      * @return void
      */
     void baseTrademark(Page<BaseTrademark> page);
+
+    /**
+     * 获取sku对应的商标
+     * @Author WangYongShuai
+     * @Date 11:29 2020/12/11
+     * @param TmId
+     * @throws
+     * @return com.atguigu.gmall.model.entity.product.BaseTrademark
+     */
+    BaseTrademark getTradeMarkByTmId(Long TmId);
 }

@@ -31,4 +31,10 @@ public class BaseTrademarkServiceImpl implements BaseTrademarkService {
     public void baseTrademark(Page<BaseTrademark> page) {
         baseTrademarkMapper.selectPage(page,null);
     }
+
+    @Override
+    public BaseTrademark getTradeMarkByTmId(Long TmId) {
+        BaseTrademark baseTrademark = baseTrademarkMapper.selectById(TmId);
+        return baseTrademark;
+    }
 }

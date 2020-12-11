@@ -1,5 +1,6 @@
 package com.atguigu.gmall.product.service;
 
+import com.atguigu.gmall.model.entity.list.SearchAttr;
 import com.atguigu.gmall.model.entity.product.BaseAttrInfo;
 import com.atguigu.gmall.model.entity.product.BaseAttrValue;
 import com.atguigu.gmall.model.entity.product.BaseSaleAttr;
@@ -55,4 +56,14 @@ public interface BaseAttrService {
      * @return java.util.List<com.atguigu.gmall.model.entity.product.BaseSaleAttr>
      */
     List<BaseSaleAttr> baseSaleAttrList();
+
+    /**
+     * 过去搜索属性信息
+     * @Author WangYongShuai
+     * @Date 11:41 2020/12/11
+     * @param skuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.list.SearchAttr>
+     */
+    List<SearchAttr> getSearchAttrListBySkuId(Long skuId);
 }

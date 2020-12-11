@@ -1,10 +1,8 @@
 package com.atguigu.gmall.product.client;
 
 import com.alibaba.fastjson.JSONObject;
-import com.atguigu.gmall.model.entity.product.BaseCategoryView;
-import com.atguigu.gmall.model.entity.product.SkuImage;
-import com.atguigu.gmall.model.entity.product.SkuInfo;
-import com.atguigu.gmall.model.entity.product.SpuSaleAttr;
+import com.atguigu.gmall.model.entity.list.SearchAttr;
+import com.atguigu.gmall.model.entity.product.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,4 +86,26 @@ public interface ProductFeignClient {
      */
     @RequestMapping("api/product/getBaseCategoryList")
     List<JSONObject> getBaseCategoryList();
+
+    /**
+     * 获取sku对应的商标
+     * @Author WangYongShuai
+     * @Date 11:26 2020/12/11
+     * @param TmId
+     * @throws
+     * @return com.atguigu.gmall.model.entity.product.BaseTrademark
+     */
+    @RequestMapping("api/product/getTradeMarkByTmId/{TmId}")
+    BaseTrademark getTradeMarkByTmId(@PathVariable Long TmId);
+
+    /**
+     * 获取搜索属性
+     * @Author WangYongShuai
+     * @Date 11:39 2020/12/11
+     * @param skuId
+     * @throws
+     * @return java.util.List<com.atguigu.gmall.model.entity.list.SearchAttr>
+     */
+    @RequestMapping("api/product/getSearchAttrListBySkuId/{skuId}")
+    List<SearchAttr> getSearchAttrListBySkuId(@PathVariable Long skuId);
 }
