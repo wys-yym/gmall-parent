@@ -3,6 +3,7 @@ package com.atguigu.gmall.product.service.impl;
 import com.atguigu.gmall.config.GmallCache;
 import com.atguigu.gmall.constant.RedisConst;
 import com.atguigu.gmall.list.client.ListFeignClient;
+import com.atguigu.gmall.model.entity.list.Goods;
 import com.atguigu.gmall.model.entity.product.*;
 import com.atguigu.gmall.product.mapper.*;
 import com.atguigu.gmall.product.service.SkuService;
@@ -10,6 +11,8 @@ import com.atguigu.gmall.product.service.SpuService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -41,12 +44,6 @@ public class SkuServiceImpl implements SkuService {
     private SkuSaleAttrValueMapper skuSaleAttrValueMapper;
 
     @Autowired
-    private RedisTemplate redisTemplate;
-
-    @Autowired
-    private SpuService spuService;
-
-    @Autowired
     private ListFeignClient listFeignClient;
 
     @Override
@@ -73,7 +70,7 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public void skuList(Page<SkuInfo> page) {
-        skuInfoMapper.selectPage(page,null);
+        skuInfoMapper.selectPage(page, null);
     }
 
     @Override
@@ -93,7 +90,6 @@ public class SkuServiceImpl implements SkuService {
         skuInfo.setId(skuId);
         skuInfo.setIsSale(0);
         skuInfoMapper.updateById(skuInfo);
-
         //从搜索引擎移除
         listFeignClient.cancelSale(skuId);
     }
@@ -114,7 +110,7 @@ public class SkuServiceImpl implements SkuService {
     private SkuInfo getSkuInfoFromDb(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
         QueryWrapper<SkuImage> wrapper = new QueryWrapper<>();
-        wrapper.eq("sku_id",skuId);
+        wrapper.eq("sku_id", skuId);
         List<SkuImage> skuImageList = skuImageMapper.selectList(wrapper);
         skuInfo.setSkuImageList(skuImageList);
         return skuInfo;

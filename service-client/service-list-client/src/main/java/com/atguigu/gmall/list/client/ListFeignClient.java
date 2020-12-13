@@ -63,4 +63,15 @@ public interface ListFeignClient {
      */
     @RequestMapping("api/list/list")
     SearchResponseVo list(@RequestBody SearchParam searchParam);
+
+    /**
+     * 设置热度值
+     * @Author WangYongShuai
+     * @Date 23:44 2020/12/13
+     * @param skuId
+     * @throws
+     * @return void
+     */
+    @RequestMapping("api/list/hotScore/{skuId}")
+    void hotScore(@PathVariable Long skuId);
 }

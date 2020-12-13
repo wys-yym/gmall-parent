@@ -3,6 +3,7 @@ package com.atguigu.gmall.item.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.gmall.config.ThreadPoolConfig;
 import com.atguigu.gmall.item.service.ItemService;
+import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.model.entity.product.BaseCategoryView;
 import com.atguigu.gmall.model.entity.product.SkuImage;
 import com.atguigu.gmall.model.entity.product.SkuInfo;
@@ -36,9 +37,14 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ThreadPoolExecutor threadPoolExecutor;
 
+    @Autowired
+    ListFeignClient listFeignClient;
+
     @Override
     public Map<String, Object> getItem(Long skuId) {
         HashMap<String, Object> resultMap = getItemByMultiThread(skuId);
+        //设置热度值
+        listFeignClient.hotScore(skuId);
         return resultMap;
     }
 

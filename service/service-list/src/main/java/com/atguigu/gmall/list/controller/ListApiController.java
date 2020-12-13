@@ -56,4 +56,9 @@ public class ListApiController {
         SearchResponseVo searchResponseVo = listService.list(searchParam);
         return searchResponseVo;
     }
+
+    @RequestMapping("hotScore/{skuId}")
+    void hotScore(@PathVariable Long skuId) {
+        listService.hotScore(skuId);
+    }
 }

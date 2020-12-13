@@ -64,4 +64,14 @@ public interface ListService {
      * @return com.atguigu.gmall.model.entity.list.SearchResponseVo
      */
     SearchResponseVo list(SearchParam searchParam);
+
+    /**
+     * 设置热度值
+     * @Author WangYongShuai
+     * @Date 23:45 2020/12/13
+     * @param skuId
+     * @throws
+     * @return void
+     */
+    void hotScore(Long skuId);
 }
