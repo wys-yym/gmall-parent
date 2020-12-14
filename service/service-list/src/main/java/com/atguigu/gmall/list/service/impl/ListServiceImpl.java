@@ -78,6 +78,7 @@ public class ListServiceImpl implements ListService {
             redisTemplate.opsForValue().set("hotScore" + skuId, 1);
         } else {
             hotScoreRedis++;
+            redisTemplate.opsForValue().increment("hotScore" + skuId,1);
             redisTemplate.opsForValue().set("hotScore" + skuId, hotScoreRedis);
             if (hotScoreRedis % 10 == 0) {
                 Goods goods = goodsElasticsearchRepository.findById(skuId).get();
